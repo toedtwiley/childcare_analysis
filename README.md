@@ -19,7 +19,7 @@ For the SQL analysis section I ended up writing pseudo code for the actual query
 ###### **Assumptions and What I'd do different with more time (Tradeoffs)**
 ----------------------
 **Assumptions**
-One of the major assumptions that I made was using the phone number and provider name as a unique identifier. I noticed that both of these fields were common from all 3 data sources and also had 0 blank values. I ended up concatenating the provider name and the phone number to form one string. Once I had that string I ran it through a hash function so I could use a unique private key. This is so anytime I see this combo in any datafile the same unique key is given to that record of data. Allowing for an easy join key.
+* One of the major assumptions that I made was using the phone number and provider name as a unique identifier. I noticed that both of these fields were common from all 3 data sources and also had 0 blank values. I ended up concatenating the provider name and the phone number to form one string. Once I had that string I ran it through a hash function so I could use a unique private key. This is so anytime I see this combo in any datafile the same unique key is given to that record of data. Allowing for an easy join key.
 
 ```python
 provider_name = "daycare_one"
@@ -29,8 +29,10 @@ unique_key = md5(combined_string)
 ```
 I then took all the unique keys from all 3 data sets and used that as my source of truth and left joined all of information to that row.
 
+* Another assumption I made was that the website I scraped wasn't going to change. This obviously would need to be updated if that happened.
+
 **What I'd do different with more time (Tradeoffs)**
-The biggest thing I would like to do is more cleaning. I was able to do a decent amount, by standardizing columns, and Coalescing multiple columns into one but I'm sure there is still more to do. I could have added more descriptive names for blank columns. For example, if there was a row of data without a type of provider I could have put "No Type Listed", it would make the result table a little nicer in my opinion. It would also help out any BI analyst who pulls the table into their weekly report and wonders what the missing values are from.
+* The biggest thing I would like to do is more cleaning. I was able to do a decent amount, by standardizing columns, and Coalescing multiple columns into one but I'm sure there is still more to do. I could have added more descriptive names for blank columns. For example, if there was a row of data without a type of provider I could have put "No Type Listed", it would make the result table a little nicer in my opinion. It would also help out any BI analyst who pulls the table into their weekly report and wonders what the missing values are from.
 
 ----------------------
 Overall a fun project!
